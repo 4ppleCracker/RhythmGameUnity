@@ -32,7 +32,6 @@ public abstract class NoteObject : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        var realAr = Map.Beatmap.CurrentlyLoaded.AR + 1f;
         var distance = NoteObjectController.SpawningTick - MapNote.TicksToThis;
         transform.position = SpawningPoint + (
             ((transform.rotation * new Vector3(0, distance)) / NoteObjectController.SpawningTick) * Distance

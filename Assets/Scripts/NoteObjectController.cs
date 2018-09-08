@@ -7,7 +7,7 @@ using System;
 public class NoteObjectController : MonoBehaviour {
 
     const int PreCalcSpawningTick = 200;
-    public static int SpawningTick => Mathf.RoundToInt(PreCalcSpawningTick / Beatmap.CurrentlyLoaded.AR);
+    public static int SpawningTick => Mathf.RoundToInt(PreCalcSpawningTick / (Beatmap.CurrentlyLoaded.AR + 1));
 
 	// Use this for initialization
 	void Start () {
