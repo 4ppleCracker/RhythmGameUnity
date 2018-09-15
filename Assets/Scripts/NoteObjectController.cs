@@ -25,6 +25,7 @@ public class NoteObjectController : MonoBehaviour {
                 temp.isLoaded = true;
                 Beatmap.CurrentlyLoaded.RemoteNote(temp);
                 NoteObject.Create(temp);
+                UnityMainThreadDispatcher.Instance().Enqueue(() => new GameObject("NoteSlider0", typeof(NoteSliderObject)).GetComponent<NoteSliderObject>().SetTriangle(0, 0, 100, 100));
             }
         };
         Rhythm.Running = true;

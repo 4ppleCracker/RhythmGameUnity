@@ -24,19 +24,34 @@ public abstract class NoteObject : MonoBehaviour {
     public Vector2 LocalTapLocation => transform.rotation * new Vector3(0, Distance);
     public Vector2 StartingLocation => SpawningPoint + (Vector3)LocalTapLocation;
 
+    public void Start()
+    {
+        transform.position = Vector3.one * 10000;
+    }
+
     public void Load()
     {
         CalculateRotationForSlice();
         transform.position = StartingLocation;
     }
 
+    long TickDistance => NoteObjectController.SpawningTick - MapNote.TicksToThis;
+    Vector3 GetOffset(long tickDistance)
+    {
+        return ((transform.rotation * new Vector3(0, tickDistance)) / NoteObjectController.SpawningTick) * Distance;
+    }
+    Vector3 GetNoteLocation()
+    {
+        return SpawningPoint + GetOffset(TickDistance);
+    }
+
     // Update is called once per frame
     void Update () {
-        var distance = NoteObjectController.SpawningTick - MapNote.TicksToThis;
-        transform.position = SpawningPoint + (
-            ((transform.rotation * new Vector3(0, distance)) / NoteObjectController.SpawningTick) * Distance
-        );
-        Debug.Log(distance);
+        
+        transform.position = GetNoteLocation();
+        var scale = (float)TickDistance / NoteObjectController.SpawningTick;
+        transform.localScale = new Vector3(scale, transform.localScale.y, transform.localScale.z);
+        Debug.Log(scale);
 
         if (MapNote.TicksToThis == 0)
             GetComponent<MeshRenderer>().material.color = Color.red;
@@ -52,5 +67,10 @@ public abstract class NoteObject : MonoBehaviour {
             noteObjComp.MapNote = mapNote;
             noteObjComp.Load();
         });
+    }
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.DrawRay(SpawningPoint, GetOffset(NoteObjectController.SpawningTick));
     }
 }
