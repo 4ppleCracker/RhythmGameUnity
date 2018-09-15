@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Map;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,14 @@ static class Rhythm
     public static long Tick { get; private set; }
     public static int BeatInTick => (int)Tick % TicksPerBeat;
 
-    public static int Bpm { get; private set; } = 60;
+    public static int Bpm {
+        get {
+            return Beatmap.CurrentlyLoaded.Bpm;
+        }
+        set {
+            Beatmap.CurrentlyLoaded.Bpm = value;
+        }
+    }
     public static double Interval {
         get {
             var bpms = (60f / (Bpm * TicksPerBeat));

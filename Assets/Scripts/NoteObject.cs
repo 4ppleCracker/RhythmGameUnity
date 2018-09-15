@@ -35,25 +35,27 @@ public abstract class NoteObject : MonoBehaviour {
         transform.position = StartingLocation;
     }
 
+    private NoteSliderObject NoteSlider => NoteObjectController.NoteSlider[Slice];
+
     long TickDistance => NoteObjectController.SpawningTick - MapNote.TicksToThis;
     Vector3 GetOffset(long tickDistance)
     {
-        return ((transform.rotation * new Vector3(0, tickDistance)) / NoteObjectController.SpawningTick) * Distance;
+        return transform.rotation * new Vector3(0, Progress * NoteSlider.Triangle.Height);//((transform.rotation * new Vector3(0, tickDistance)) / NoteObjectController.SpawningTick) * Distance;
     }
     Vector3 GetNoteLocation()
     {
         return SpawningPoint + GetOffset(TickDistance);
     }
+    float Progress => (float)TickDistance / NoteObjectController.SpawningTick;
 
     // Update is called once per frame
     void Update () {
         
         transform.position = GetNoteLocation();
-        var scale = (float)TickDistance / NoteObjectController.SpawningTick;
+        var scale = Progress;
         transform.localScale = new Vector3(scale, transform.localScale.y, transform.localScale.z);
-        Debug.Log(scale);
 
-        if (MapNote.TicksToThis == 0)
+        if (MapNote.TicksToThis < 0)
             GetComponent<MeshRenderer>().material.color = Color.red;
         if (MapNote.TicksToThis <= -10)
             Destroy(gameObject);

@@ -14,9 +14,11 @@ namespace Map
         public Queue<BpmChange> BpmChanges { get; set; } = new Queue<BpmChange>();
 
         public float Acc = 5f;
-        public float AR = 7f;
+        public float AR = 2f;
 
         public int SliceCount = 8;
+
+        public int Bpm = 120;
 
         private long m_offset = 0;
         public long Offset {
