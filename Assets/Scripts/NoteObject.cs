@@ -40,19 +40,15 @@ public abstract class NoteObject : MonoBehaviour {
     long TickDistance => NoteObjectController.SpawningTick - MapNote.TicksToThis;
     Vector3 GetOffset(long tickDistance)
     {
-        return transform.rotation * new Vector3(0, Progress * NoteSlider.Triangle.Height);//((transform.rotation * new Vector3(0, tickDistance)) / NoteObjectController.SpawningTick) * Distance;
+        return transform.rotation * new Vector3(0, Progress(tickDistance) * NoteSlider.Triangle.Height);//((transform.rotation * new Vector3(0, tickDistance)) / NoteObjectController.SpawningTick) * Distance;
     }
-    Vector3 GetNoteLocation()
-    {
-        return SpawningPoint + GetOffset(TickDistance);
-    }
-    float Progress => (float)TickDistance / NoteObjectController.SpawningTick;
+    float Progress(float tickDistance) => tickDistance / NoteObjectController.SpawningTick;
 
     // Update is called once per frame
     void Update () {
         
-        transform.position = GetNoteLocation();
-        var scale = Progress;
+        transform.position = SpawningPoint + GetOffset(TickDistance);
+        var scale = Progress(TickDistance);
         transform.localScale = new Vector3(scale, transform.localScale.y, transform.localScale.z);
 
         if (MapNote.TicksToThis < 0)
@@ -72,7 +68,6 @@ public abstract class NoteObject : MonoBehaviour {
     }
     private void OnDrawGizmos()
     {
-
         Gizmos.DrawRay(SpawningPoint, GetOffset(NoteObjectController.SpawningTick));
     }
 }

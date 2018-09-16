@@ -22,7 +22,7 @@ public struct Triangle
         get {
             var list = new List<float>() { A.y, B.y, C.y };
             list.Sort((a, b) => a.CompareTo(b));
-            return list.Last();
+            return list.First();
         }
     }
     public float WidthAt(int x)
@@ -38,6 +38,14 @@ public struct Triangle
     public static Triangle operator -(Triangle a, Vector2 b)
     {
         return a - new Triangle(b, b, b);
+    }
+    public static Triangle operator +(Triangle a, Triangle b)
+    {
+        return new Triangle(a.A + b.A, a.B + b.B, a.C + b.C);
+    }
+    public static Triangle operator +(Triangle a, Vector2 b)
+    {
+        return a + new Triangle(b, b, b);
     }
     public static Triangle operator *(Triangle a, Triangle b)
     {

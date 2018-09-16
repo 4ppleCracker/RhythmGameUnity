@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f432fae07a0dd4584dce917fe83e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoteSliderMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  NoteSliderMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &180788289
 Transform:
   m_ObjectHideFlags: 0

@@ -17,22 +17,7 @@ public class NoteObjectController : MonoBehaviour {
     private Triangle GetTriangleForSlice(int slice, float scale = 1)
     {
         Triangle tri = new Triangle(new Vector2(0, 0), new Vector2(1, 0), new Vector2(.5f, 1)) * scale;
-        return tri - tri.Middle;
-    }
-    private double DegreeToRadian(double angle)
-    {
-        return Math.PI * angle / 180.0;
-    }
-    private double RadianToDegree(double angle)
-    {
-        return angle * (180.0 / Math.PI);
-    }
-    private Vector2 GetPositionForSlice(int slice, double radius)
-    {
-        double angle = -DegreeToRadian(360 / Beatmap.CurrentlyLoaded.SliceCount) * slice + DegreeToRadian(90);
-        double x = radius * Math.Cos(angle);
-        double y = radius * Math.Sin(angle);
-        return new Vector2((float)x, (float)y);
+        return tri - tri.C;
     }
 
     void Start() {
@@ -42,7 +27,7 @@ public class NoteObjectController : MonoBehaviour {
             Bpm = 120,
             Notes = new Queue<Note>(new Note[] {
                 new Note() { Slice = 1, Tick = 50 },
-                new Note() { Slice = 2, Tick = 70 }
+                //new Note() { Slice = 2, Tick = 70 }
             })
         };
 
@@ -55,7 +40,6 @@ public class NoteObjectController : MonoBehaviour {
             noteSlider.Material = NoteSliderMaterial;
             noteSlider.Slice = i;
             noteSlider.transform.rotation = Quaternion.Euler(0, 0, -(360 / Beatmap.CurrentlyLoaded.SliceCount) * i + 180);
-            noteSlider.transform.position = GetPositionForSlice(i, 2);
 
             noteSliders.Add(noteSlider);
         }

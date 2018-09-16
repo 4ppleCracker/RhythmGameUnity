@@ -39,7 +39,8 @@ public class NoteSliderObject : MonoBehaviour
     }
     public Triangle Triangle {
         get {
-            return new Triangle(Mesh.vertices[0], Mesh.vertices[1], Mesh.vertices[2]);
+            Triangle tri = new Triangle(Mesh.vertices[0], Mesh.vertices[1], Mesh.vertices[2]);
+            return tri + tri.C;
         }
         set {
             SetTriangle(value);
@@ -59,10 +60,5 @@ public class NoteSliderObject : MonoBehaviour
         if ((t = GetComponent<T>()) == null)
             t = gameObject.AddComponent<T>();
         return t;
-    }
-    public void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(Vector2.zero, new Vector2(Triangle.Width, 0));
-        Gizmos.DrawRay(Vector2.zero, new Vector2(0, Triangle.Height));
     }
 }
