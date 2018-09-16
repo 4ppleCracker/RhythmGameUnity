@@ -68,7 +68,7 @@ namespace Map
         public bool NoteExistsAtTick(int tick) {
             return Notes.Any(n => n.Tick == tick);
         }
-        public void RemoteNote(Note n)
+        public void RemoveNote(Note n)
         {
             List<Note> temp = Notes.ToList();
             temp.Remove(n);

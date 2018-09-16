@@ -50,7 +50,7 @@ public class NoteObjectController : MonoBehaviour {
             for (int i = 0; !((temp = Beatmap.CurrentlyLoaded.GetNoteAt(i)) == null) && temp.TicksToThis <= SpawningTick; i++)
             {
                 temp.isLoaded = true;
-                Beatmap.CurrentlyLoaded.RemoteNote(temp);
+                Beatmap.CurrentlyLoaded.RemoveNote(temp);
                 NoteObject.Create(temp);
             }
         };
