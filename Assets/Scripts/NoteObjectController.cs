@@ -25,11 +25,11 @@ public class NoteObjectController : MonoBehaviour {
         {
             SliceCount = 8,
             Bpm = 120,
-            Notes = new Queue<Note>(new Note[] {
-                new Note() { Slice = 1, Tick = 50 },
-                //new Note() { Slice = 2, Tick = 70 }
-            })
         };
+        Beatmap.CurrentlyLoaded.Notes = new Queue<Note>(new Note[] {
+                new Note() { Slice = 1, Tick = 50 },
+                new Note() { Slice = 2, Tick = 70 }
+        });
 
         List<NoteSliderObject> noteSliders = new List<NoteSliderObject>();
         for(int i = 0; i < Beatmap.CurrentlyLoaded.SliceCount; i++)

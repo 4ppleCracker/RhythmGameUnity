@@ -55,6 +55,7 @@ static class Rhythm
     // % 16 == 1/1
     // % 8  == 1/2
     // % 4  == 1/4
+
     /// <summary>
     /// If current note playing is a 1/nth note
     /// </summary>
@@ -63,5 +64,14 @@ static class Rhythm
     public static bool IsNote(int n)
     {
         return BeatInTick % (TicksPerBeat / n) == 0;
+    }
+    /// <summary>
+    /// Get the tick for 1/nth note
+    /// </summary>
+    /// <param name="n">Denominator in the calculation</param>
+    /// <returns></returns>
+    public static int TickFor(int n)
+    {
+        return TicksPerBeat / n;
     }
 }
