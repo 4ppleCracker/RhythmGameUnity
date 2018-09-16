@@ -49,9 +49,9 @@ public class NoteObjectController : MonoBehaviour {
             Note temp;
             for (int i = 0; !((temp = Beatmap.CurrentlyLoaded.GetNoteAt(i)) == null) && temp.TicksToThis <= SpawningTick; i++)
             {
-                temp.isLoaded = true;
                 Beatmap.CurrentlyLoaded.RemoveNote(temp);
                 NoteObject.Create(temp);
+                temp.isLoaded = true;
             }
         };
         Rhythm.Running = true;
